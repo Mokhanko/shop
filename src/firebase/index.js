@@ -2,16 +2,6 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-const config = {
-  apiKey: "AIzaSyDrIIaTDN6TFeAE9OlXW8OZ1X5Kfw_sNx0",
-  authDomain: "myshop-3a0ab.firebaseapp.com",
-  databaseURL: "https://myshop-3a0ab.firebaseio.com",
-  projectId: "myshop-3a0ab",
-  storageBucket: "",
-  messagingSenderId: "237989075483",
-  appId: "1:237989075483:web:25f8c86cc867541f"
-};
-
 export const createUserProfileDoc = async (userAuth, additionalData) => {
   if(!userAuth) return;
 
