@@ -1,19 +1,52 @@
-import userActionTypes from './types';
+import { createAction, handleActions } from 'redux-actions';
+import { createSelector } from 'reselect';
 
 const initialState = {
-  currentUser: null
+  currentUser: null,
+  error: null
 };
 
-const userReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case userActionTypes.SET_CURRENT_USER:
-      return {
-        ...state,
-        currentUser: action.payload
-      };
-    default:
-      return state;
-  }
-};
+export const googleSignInStart = createAction('GOOGLE_SIGN_IN_START');
 
-export default  userReducer;
+export const emailSignInStart = createAction('EMAIL_SIGN_IN_START',
+    emailAndPassword => ({ emailAndPassword }));
+
+export const signInSuccess = createAction('SIGN_IN_SUCCESS', user => ({ user }));
+
+export const signActionsFailure = createAction('SIGN_IN_FAILURE', error => ({ error }));
+
+export const checkUserSession = createAction('CHECK_USER_SESSION');
+
+export const signOutStart = createAction('SIGN_OUT_START');
+
+export const signOutSuccess = createAction('SIGN_OUT_SUCCESS');
+
+export const signUpStart = createAction('SIGN_UP_START',
+    userCredentials => ({ userCredentials }));
+
+export const signUpSuccess = createAction('SIGN_UP_SUCCESS',
+  ({ user, additionalData }) => ({ user, additionalData }));
+
+const selectUser = state => state.user;
+
+export const selectCurrentUser = createSelector(
+  [selectUser],
+  user => user.currentUser
+);
+
+
+export default  handleActions({
+  [signInSuccess]: (state, { payload }) => ({
+    ...state,
+    currentUser: payload.user,
+    error: null }),
+  [signActionsFailure]: (state, { payload}) => ({
+    ...state,
+    error: payload.error
+  }),
+  [signOutSuccess]: state => ({
+    ...state,
+    currentUser: null,
+    error: null
+  })
+}, initialState);
