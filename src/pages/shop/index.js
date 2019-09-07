@@ -28,4 +28,5 @@ const ShopPage = ({ fetchCollectionStart, match }) => {
     </div>
   )
 };
+
 export default connect(null, mapDispatchToProps)(ShopPage);
