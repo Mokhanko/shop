@@ -9,7 +9,7 @@ import CheckOutPage from './pages/checkout';
 import Header from './components/header';
 import { selectCurrentUser } from './redux/user';
 import { checkUserSession } from './redux/user';
-import './App.css';
+import { GlobalStyle } from './globalStyles';
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
@@ -27,6 +27,7 @@ const App = ({ checkUserSession, currentUser }) => {
 
   return (
     <>
+      <GlobalStyle />
       <Header/>
       <Switch>
         <Route exact path='/' component={Homepage}/>
